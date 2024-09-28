@@ -1,18 +1,18 @@
+import streamlit as st
 import matplotlib.pyplot as plt
-import streamlit
 
-# Dữ liệu
-x = [0, 1, 2, 3, 4, 5]
-y = [0, 1, 4, 9, 16, 25]
+# Dữ liệu ví dụ
+months = ['January', 'February', 'March', 'April', 'May']
+sales = [200, 300, 150, 400, 350]
 
-# Vẽ biểu đồ
-plt.plot(x, y, marker='o')
+# Vẽ biểu đồ cột
+fig, ax = plt.subplots(figsize=(8, 6))
+ax.bar(months, sales, color='skyblue')
 
-# Thêm tiêu đề và nhãn
-plt.title('Biểu đồ hàm số y = x^2')
-plt.xlabel('Giá trị x')
-plt.ylabel('Giá trị y')
+# Thêm nhãn và tiêu đề
+ax.set_xlabel('Months', fontsize=12)
+ax.set_ylabel('Sales (in USD)', fontsize=12)
+ax.set_title('Monthly Sales Data', fontsize=16)
 
-# Hiển thị biểu đồ
-plt.grid(True)
-plt.show()
+# Hiển thị biểu đồ trên Streamlit
+st.pyplot(fig)
