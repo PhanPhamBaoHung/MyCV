@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import streamlit
 
 # Dữ liệu
 x = [0, 1, 2, 3, 4, 5]
