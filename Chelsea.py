@@ -1,48 +1,56 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Hàm vẽ hình tròn
 def draw_circle(x, y, radius, color, fill=True):
     circle = plt.Circle((x, y), radius, color=color, fill=fill)
     plt.gca().add_patch(circle)
 
-# Hàm vẽ chữ
-def draw_text(text, x, y, fontsize, color):
-    plt.text(x, y, text, fontsize=fontsize, fontweight='bold', ha='center', va='center', color=color)
+# Hàm vẽ hình bầu dục
+def draw_ellipse(x, y, width, height, angle, color):
+    ellipse = plt.Ellipse((x, y), width, height, angle=angle, color=color)
+    plt.gca().add_patch(ellipse)
 
-# Hàm vẽ logo Chelsea đơn giản
-def draw_chelsea_logo():
+# Hàm vẽ miệng
+def draw_mouth(x, y, width, height, color):
+    mouth = plt.Rectangle((x - width / 2, y), width, height, color=color)
+    plt.gca().add_patch(mouth)
+
+# Hàm vẽ mắt
+def draw_eyes():
+    # Mắt trái
+    draw_circle(-0.4, 0.3, 0.25, color='white')
+    draw_circle(-0.4, 0.3, 0.1, color='black')
+    # Mắt phải
+    draw_circle(0.4, 0.3, 0.25, color='white')
+    draw_circle(0.4, 0.3, 0.1, color='black')
+
+# Hàm vẽ hình tổng thể
+def draw_frog_face():
     fig, ax = plt.subplots()
 
     # Thiết lập khung hình
     ax.set_aspect('equal')
-    ax.set_xlim(-2, 2)
-    ax.set_ylim(-2, 2)
+    ax.set_xlim(-1.5, 1.5)
+    ax.set_ylim(-1.5, 1.5)
     plt.axis('off')  # Tắt khung trục tọa độ
 
-    # Vẽ vòng tròn lớn bên ngoài - đường viền xanh
-    draw_circle(0, 0, 1.8, color='blue', fill=True)
-    draw_circle(0, 0, 1.6, color='white', fill=True)
+    # Vẽ đầu (hình tròn)
+    draw_circle(0, 0, 1, color='green')
 
-    # Vẽ vòng tròn nhỏ bên trong - nền xanh dương
-    draw_circle(0, 0, 1.4, color='blue', fill=True)
+    # Vẽ mắt
+    draw_eyes()
 
-    # Vẽ vòng tròn trung tâm - biểu tượng đơn giản
-    draw_circle(0, 0, 0.6, color='white', fill=True)
-    draw_circle(0, 0, 0.4, color='blue', fill=True)
-
-    # Vẽ tên Chelsea ở phía trên
-    draw_text("CHELSEA", 0, 1.2, fontsize=20, color='white')
-
-    # Vẽ tên Football Club ở phía dưới
-    draw_text("FOOTBALL CLUB", 0, -1.2, fontsize=15, color='white')
+    # Vẽ miệng
+    draw_mouth(0, -0.5, 1, 0.1, color='brown')
 
     # Hiển thị logo
     return fig
 
 # Tạo giao diện với Streamlit
-st.title("Chelsea Football Club Logo")
+st.title("Simple Frog Face Drawing")
 
-# Vẽ và hiển thị logo
-fig = draw_chelsea_logo()
+# Vẽ và hiển thị hình ảnh
+fig = draw_frog_face()
 st.pyplot(fig)
